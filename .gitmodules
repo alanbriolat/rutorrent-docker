@@ -1,0 +1,3 @@
+[submodule "ruTorrent"]
+	path = ruTorrent
+	url = https://github.com/Novik/ruTorrent.git
