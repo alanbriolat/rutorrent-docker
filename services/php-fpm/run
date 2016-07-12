@@ -1,0 +1,3 @@
+#!/bin/bash
+# based on linuxserver/docker-baseimage-nginx
+exec /usr/sbin/php5-fpm -F -y /config/nginx/php-fpm.conf

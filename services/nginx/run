@@ -1,0 +1,3 @@
+#!/bin/bash
+# copied from linuxserver/docker-rutorrent
+exec /usr/sbin/nginx -c /config/nginx/nginx.conf
