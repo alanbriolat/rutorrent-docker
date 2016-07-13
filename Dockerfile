@@ -10,15 +10,22 @@ RUN apt-get update && \
     apt-get clean -y && \
     rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
+# Create user/group that will be used to match host UID/GID for permissions on volumes
+# (taken from linuxserver/docker-baseimage)
+RUN useradd -u 911 -U -d /config -s /bin/false abc && \
+    usermod -G users abc
+
 ADD ruTorrent /ruTorrent/
 RUN rm /ruTorrent/conf/config.php && \
-    ln -sv /config/rutorrent/config.php /ruTorrent/conf/config.php
+    ln -sv /config/rutorrent/config.php /ruTorrent/conf/config.php && \
+    rm -r /ruTorrent/share && \
+    ln -sv /config/rutorrent/share /ruTorrent/share
 
 # Move all the plugins out of the way, only enable the ones that were selected
-ENV RUTORRENT_PLUGINS="autotools data datadir diskspace erasedata _getdir rpc rss scheduler seedingtime tracklabels"
+ENV RUTORRENT_PLUGINS="autotools data datadir erasedata _getdir rpc rss scheduler seedingtime tracklabels"
 RUN mv /ruTorrent/plugins /ruTorrent/plugins-available && \
-    mkdir -p /ruTorrent/plugins && \
-    for P in $RUTORRENT_PLUGINS ; do ln -sv /ruTorrent/plugins-available/$P /ruTorrent/plugins/$P ; done
+    mkdir -p /ruTorrent/plugins
+# (enabling plugins performed by init/70_setup_environment.sh)
 
 ADD defaults/ /defaults/
 ADD init/ /etc/my_init.d/

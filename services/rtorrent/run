@@ -1,4 +1,4 @@
 #!/bin/bash
 
-dtach -n /.dtach_rtorrent /usr/bin/rtorrent -n -o import=/config/rtorrent/rtorrent.rc
+dtach -n /.dtach_rtorrent /sbin/setuser abc /usr/bin/rtorrent -n -o import=/config/rtorrent/rtorrent.rc
 inotifywait -e delete /.dtach_rtorrent
