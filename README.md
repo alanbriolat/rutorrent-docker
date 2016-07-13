@@ -17,7 +17,7 @@ docker run --rm  \
     -v <path to config>:/config  \
     -v <path to data>:/data  \
     -p 8080:80  \
-    -p 36890-36899  \
+    -p 36890-36899:36890-36899  \
     -e PUID=$(id -u <username>)  \
     -e PGID=$(getent group <groupname> | cut -d: -f3)  \
     alanbriolat/rutorrent:3.7-0.9.2-0
