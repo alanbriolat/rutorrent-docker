@@ -1,0 +1,11 @@
+# My systemd service file, adapt for your own needs
+[Unit]
+Description=rTorrent+ruTorrent docker container
+
+[Service]
+Restart=on-failure
+RestartSec=10
+ExecStart=/usr/bin/docker run -p 127.0.0.1:54321:80 -p 36890-36899:36890-36899 -v /home/alan/rutorrent-config:/config -v /srv/media/Torrents:/data -e PUID=1000 -e PGID=1003 --rm --name=rutorrent alanbriolat/rutorrent:3.7-0.9.2-0
+
+[Install]
+WantedBy=multi-user.target
